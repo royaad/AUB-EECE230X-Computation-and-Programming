@@ -5,7 +5,6 @@ Created on Sun Nov 25 22:29:14 2018
 @author: louay
 """
 
-
 ####################################################################
 import networkx as nx
 
@@ -38,14 +37,6 @@ class DiGraph(object):
         G.add_nodes_from(list(self.adj))
         G.add_edges_from([(u, v) for u in self.adj for v in self.adj[u] ])
         nx.draw(G,with_labels=True,node_color='w')
-    
-        
-
-
-
-
-
-
 
 ####################################################################
 class UndirectedGraph(DiGraph):
@@ -87,7 +78,6 @@ def  buildGraphFromFile(fileName, undirected = False):
     G.adj = adj        
     return G
 
-
 #G = buildGraphFromFile("DiGraph1.txt", undirected = False)
 #G.draw()
 #G = buildGraphFromFile("UndirectedGraph1.txt", undirected =True)
@@ -104,34 +94,33 @@ def DFSVisit(G,u,parent):
             # If not visited yet, to avoid getting stuck in cycles
             parent[v]=u
             DFSVisit(G,v,parent)
-   
-
 
 ####################################################################
 ### Graph Breadth First Search (BFS) 
-
-#from circularQueue import Queue
-#def BFS(G,s):
-#    """ Breadth First Search function
-#        Assumes G is a directed or undirected graph and u is node in G
-#        Returns dict distance  mapping each node u (key) to the length of the  shortest 
-#                     path from source s to u (value) 
-#            and dict parent mapping each node (key) to its parent (value) in shortest path to source """
-#    assert s in G.adj, "node not in graph"
-#    parent = {s:None} # Initialize dict parent
-#    distance = {s:0} # Initialize dict distance 
-#    # Initialize Q of max size the number of nodes in G: len(G.adj)
-#    Q = Queue(len(G.adj))
-#    Q.enqueue(s)
-#    while not Q.isEmpty():
-##        print("Q:", Q)
-##        print("distance:", distance)
-##        print("parent",  parent)
-##        print("--------")
-#        u = Q.dequeue()
-#        for v in G.adj[u]:
-#            if v not in distance:
-#                distance[v]=distance[u]+1
-#                parent[v]=u
-#                Q.enqueue(v)
-#    return (distance,parent)
+# for relative import we need to add . in front of the modules name
+# another option is to create a package with a __init__.py file
+from .circularQueue import Queue
+def BFS(G,s):
+   """ Breadth First Search function
+       Assumes G is a directed or undirected graph and u is node in G
+       Returns dict distance  mapping each node u (key) to the length of the  shortest 
+                    path from source s to u (value) 
+           and dict parent mapping each node (key) to its parent (value) in shortest path to source """
+   assert s in G.adj, "node not in graph"
+   parent = {s:None} # Initialize dict parent
+   distance = {s:0} # Initialize dict distance 
+   # Initialize Q of max size the number of nodes in G: len(G.adj)
+   Q = Queue(len(G.adj))
+   Q.enqueue(s)
+   while not Q.isEmpty():
+#        print("Q:", Q)
+#        print("distance:", distance)
+#        print("parent",  parent)
+#        print("--------")
+       u = Q.dequeue()
+       for v in G.adj[u]:
+           if v not in distance:
+               distance[v]=distance[u]+1
+               parent[v]=u
+               Q.enqueue(v)
+   return (distance,parent)

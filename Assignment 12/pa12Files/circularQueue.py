@@ -72,5 +72,4 @@ class Queue(object):
         return s[:-1]+"]"
         # -1 to remove the trailing comma 
     def __len__(self):
-        return self.size 
-
+        return self.size
