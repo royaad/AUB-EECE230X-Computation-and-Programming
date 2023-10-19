@@ -1,17 +1,17 @@
-import time
+import timeit
 import matplotlib.pyplot as plt
 import numpy.random as rand
 
 elapsed_time = []
-L = rand.uniform(-1, 1, (1000, ))
-n = list(range(8))
+L = rand.uniform(-1, 1, (100000, ))
+n = list(range(1000))
 
 # Testing the sum function
 for i in n:
-    print(i)
-    t0 = time.time()
+    t0 = timeit.default_timer()
     sum(L[:100*i])
-    elapsed_time.append(time.time() - t0)
+    sumtime = timeit.default_timer() - t0
+    elapsed_time.append(sumtime)
 
 plt.plot(n, elapsed_time)
 plt.show()
