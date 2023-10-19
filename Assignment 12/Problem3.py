@@ -14,12 +14,19 @@ def DFSVisitModified(G,u,index,count):
 def findConnectedComponents(G):
     index = {}
     count = 0
+    # looping over all nodes
     for u in G.adj:
+        # check if node is not visited yet
         if u not in index:
             DFSVisitModified(G,u,index,count)
             count += 1
-    return index
-            
+    # creating a list of lists from the dictionary
+    # first create an empty list
+    L = [[] for _ in range(count)]    # we can equally use L=list([[]*count]*count)
+    # iterating over keys and values for index dictionnary
+    for k, v in index.items():
+        L[v].append(k)
+    return L
 
 G = buildGraphFromFile("c:/Users/user/Desktop/AUB EECE230X/Assignment 12/pa12Files/UndirectedGraph3.txt", undirected =True)
 print(G)
