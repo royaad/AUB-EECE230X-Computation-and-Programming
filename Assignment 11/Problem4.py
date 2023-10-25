@@ -1,6 +1,6 @@
 class Queue(object):
     """ Queue with given max size """ 
-    def __init__(self, maxSize=10):
+    def __init__(self, maxSize=16):
         """ takes maxSize whose  default value is 10 """
         self.L = [None]*maxSize
         self.size = 0
@@ -55,13 +55,20 @@ class Queue(object):
 class UnboundedQueue(Queue):
     def __doubleList(self):
         newL = [None]*2*self.maxSize
-        newL[0:self.size] = self.L[self.head:self.tail]
+        # copy self.L to newL
+        index = self.tail
+        for count in range(self.size):
+            newL[count] = self.L[index]
+            if index<self.maxSize-1:
+                index+=1
+            else: 
+                index=0
         self.head = 0
         self.tail = self.size
         self.L = newL[:]
         self.maxSize *= 2
     def enqueue(self, value):
-        if not self.isFull():
+        if self.isFull():
             self.__doubleList()
         return Queue.enqueue(self, value)
 
@@ -78,4 +85,13 @@ for i in range(5):
 print(Q)
 for i in range(10):
     Q.enqueue(i)
+print(Q)
+
+Q = UnboundedQueue(5)
+L = [1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0]
+for i in L:
+    if i == 1:
+        Q.enqueue(i)
+    else:
+        Q.dequeue
 print(Q)

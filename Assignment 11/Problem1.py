@@ -1,5 +1,6 @@
 class ComplexNumber():
     def __init__(self, x=0, y=0):
+        assert (type(x)==int or type(x)==float) and (type(y)==int or type(y)==float), "Bad Input!"
         self.x = x
         self.y = y
     def conj(self):
@@ -30,14 +31,17 @@ class ComplexNumber():
         return ComplexNumber(-self.x, -self.y)
     def __str__(self):
         if self.y >= 0:
-            return str(self.x) + '+' + str(self.y) + 'j'
+            return '(' + str(self.x) + '+' + str(self.y) + 'j)'
         else:
-            return str(self.x) + str(self.y) + 'j'
-    
+            return '(' + str(self.x) + str(self.y) + 'j)'
+
+class Complex(ComplexNumber):
+    def __init__(self, x=0, y=0):
+        ComplexNumber.__init__(self, x, y)
 
 # r = ComplexNumber(12)
 # z = ComplexNumber(1.5, 2)
-# t = ComplexNumber(2.2, 3)
+# t = Complex('a',1)
 # print(r)
 # print(z+t)
 # print(-z)
