@@ -1,5 +1,15 @@
-from pa12Files.graph import DFSVisit, buildGraphFromFile 
+from pa12Files.graph import buildGraphFromFile # DFSVisit can be imported from graph also.
 import matplotlib.pyplot as plt
+
+def DFSVisit(G,u,parent):
+    """ Recursive Depth First Search function 
+        Assumes G is a directed or undirected graph and u is node in G
+        parent is a dict mapping each node (key) to its parent (value) in DFS traversal    """
+    for v in G.adj[u]:
+        if v not in parent:
+            # If not visited yet, to avoid getting stuck in cycles
+            parent[v]=u
+            DFSVisit(G,v,parent)
 
 def extractPath(t,parent):
     L = []
