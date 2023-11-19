@@ -61,7 +61,7 @@ class UnboundedQueue(Queue):
             newL[count] = self.L[index]
             if index<self.maxSize-1:
                 index+=1
-            else: 
+            else:
                 index=0
         self.head = 0
         self.tail = self.size
@@ -95,3 +95,5 @@ for i in L:
     else:
         Q.dequeue
 print(Q)
+print(len(Q), len(Q.L))
+print(type(Q), type(Q.L))

@@ -1,11 +1,12 @@
 # import sys
 # print (sys.path)
-from pa12Files.graph import buildGraphFromFile # BFS can be imported from graph
-from pa12Files.circularQueue import Queue # this line is necessary since we did not import BFS from graph, otherwise remove.
+from pa12Files.graph import buildGraphFromFile
+from pa12Files.circularQueue import Queue
 import matplotlib.pyplot as plt
-from Problem1b import buildGraphFromMaze
+# from Problem1b import buildGraphFromMaze
+# will run the code and generate a Maze, we should use (if __name__ == "__main__") to avoid it.
     
-def BFS(G,s):
+def BFS(G,s,t):
     """ Breadth First Search function
     Assumes G is a directed or undirected graph and u is node in G
     Returns dict distance  mapping each node u (key) to the length of the  shortest 
@@ -22,6 +23,7 @@ def BFS(G,s):
     #        print("distance:", distance)
     #        print("parent",  parent)
     #        print("--------")
+        if t in distance and distance[t] != 0: return (distance,parent)
         u = Q.dequeue()
         for v in G.adj[u]:
             if v not in distance:
@@ -39,22 +41,65 @@ def extractPath(t,parent):
     return L
 
 def findShortestPath(G,s,t):
-    _, parent = BFS(G,s)
+    _, parent = BFS(G,s,t)
+    print(parent)
     if t in parent:
         return extractPath(t,parent)
     else:
         return []
 
-# G = buildGraphFromFile("c:/Users/user/Desktop/AUB EECE230X/Assignment 12/pa12Files/UndirectedGraph2.txt", undirected =True)
-# UndirectedGraph2.txt is available in compressed folder associated with this assignment
+G = buildGraphFromFile("c:/Users/user/Desktop/AUB EECE230X/Assignment 12/pa12Files/UndirectedGraph2.txt", undirected =True)
+# # UndirectedGraph2.txt is available in compressed folder associated with this assignment
 # print(findShortestPath(G,'A','F'))
 # print(findShortestPath(G,'A','I'))
+# print(findShortestPath(G,'A','A'))
 # plt.figure(1)
 # plt.clf()
 # G.draw()
 # plt.show()
 
-# cases from sharifjudge
+# # cases from sharifjudge
+G.adj = {'a': ['a'], 'n': ['a']}
+print(findShortestPath(G, s = 'n', t = 'n'))
+plt.figure(1)
+plt.clf()
+G.draw()
+plt.show()
+
+G.adj = {'a': [], 'e': ['l'], 'v': ['a'], 'l': ['g', 'y'], 'x': ['y'], 'u': ['i'], 'p': [], 'g': [], 'd': ['p', 'v'], 'b': ['i'], 'q': ['q'], 'y': [], 'i': ['i', 'd']}
+print(findShortestPath(G, s = 'e', t = 'e'))
+plt.figure(1)
+plt.clf()
+G.draw()
+plt.show()
+
+G.adj = {'a': ['o'], 'p': [], 'q': [], 'o': ['a'], 'i': [], 'c': [], 'r': ['o']}
+print(findShortestPath(G, s = 'p', t = 'p'))
+plt.figure(1)
+plt.clf()
+G.draw()
+plt.show()
+
+G.adj = {'a': ['a', 'u'], 'u': ['a']}
+print(findShortestPath(G, s = 'a', t = 'a'))
+plt.figure(1)
+plt.clf()
+G.draw()
+plt.show()
+
+G.adj = {'a': ['a']}
+print(findShortestPath(G, s = 'a', t = 'a'))
+plt.figure(1)
+plt.clf()
+G.draw()
+plt.show()
+
+G.adj = {'a': []}
+print(findShortestPath(G, s = 'a', t = 'a'))
+plt.figure(1)
+plt.clf()
+G.draw()
+plt.show()
 
 # import numpy
 # M=[[True, False, True, True, False, True, True],
@@ -65,8 +110,8 @@ def findShortestPath(G,s,t):
 # print("M:")
 # print(numpy.matrix(M,int))
 # GMaze = buildGraphFromMaze(M)
+# print(findShortestPath(GMaze,(0,0),(4,6)))
 # plt.figure(2)
 # plt.clf()
 # GMaze.draw()
 # plt.show()
-# print(findShortestPath(GMaze,(0,0),(4,6)))
