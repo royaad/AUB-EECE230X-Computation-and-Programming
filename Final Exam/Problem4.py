@@ -1,22 +1,28 @@
-def threeDistinct(L):
-    def threeDistinctRecursive(L, count, last_value):
-        # Check if count is bigger than 3
-        if count >= 3: return True
-        # Check if L is empty and return False
-        if not L: return False
-        # Check if last value is different and increment count
-        if L[0] != last_value:
-            return threeDistinctRecursive(L[1:], count + 1, L[0])
-        else:
-            return threeDistinctRecursive(L[1:], count, L[0])
+# Roy Aad
 
-    return threeDistinctRecursive(L, 0, None)
+def threeDistinct(L):
+    if len(L) < 3: return False
+    def threeDistinctRecursive(L, count, low, high):
+        if (high - low) <= 1:
+            if L[high] != L[low]:
+                return count + 1
+            else:
+                return count
+        if L[low] == L[high]:
+            return count
+        else:
+            mid = (low + high)//2
+            count = threeDistinctRecursive(L, count+1, low, mid)
+            return threeDistinctRecursive(L, count, mid+1, high)
+
+    return threeDistinctRecursive(L, 0, 0, len(L)-1) >= 2
 
 print(threeDistinct([]))
 print(threeDistinct([1]))
 print(threeDistinct([1,1]))
 print(threeDistinct([1,10]))
 print(threeDistinct([1,1,10]))
+print(threeDistinct([1,2,10]))
 print(threeDistinct([1,1,10,10,10]))
 print(threeDistinct([1,1,3,10,10,10]))
 print(threeDistinct([1,1,3,10,10,10,10,10,10]))
