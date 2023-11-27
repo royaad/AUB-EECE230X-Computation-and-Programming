@@ -11,8 +11,8 @@ class AUBFL:
 
     def __str__(self):
         s = ""
-        for team in self.Points:
-            s += f"{team}: {self.Points[team]}\n"
+        for team, points in self.Points.items():
+            s += f"{team}: {points}\n"
         return s
 
     def play(self, team1, team2, score1, score2):
@@ -37,12 +37,12 @@ class AUBFL:
     def winner(self):
         winner_team = "No Winner"
         winner_score = -1
-        for team in self.Points:
-            if self.Points[team] > winner_score:
+        for team, score in self.Points.items():
+            if score > winner_score:
                 winner_team = team
                 winner_score = self.Points[team]
-            elif self.Points[team] == winner_score:
-                return "No Winner"
+            elif score == winner_score:
+                winner_team = "No Winner"
         return winner_team
 
 League = AUBFL(["CSE", "CIVE", "PremedStudentSociety"])
