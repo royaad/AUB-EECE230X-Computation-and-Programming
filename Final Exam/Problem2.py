@@ -1,11 +1,12 @@
 # Roy Aad
 
+
 class AUBFL:
     def __init__(self, Teams):
-        assert type(Teams) is list, "Invalid Input!"
-        
+        assert isinstance(Teams, list), "Invalid Input!"
+
         for element in Teams:
-            assert type(element) is str, "Invalid Input!"
+            assert isinstance(element, str), "Invalid Input!"
 
         self.Points = {team: 0 for team in Teams}
 
@@ -19,8 +20,8 @@ class AUBFL:
         assert team1 in self.Points, "Invalid Input!"
         assert team2 in self.Points, "Invalid Input!"
 
-        assert type(score1) is int, "Invalid Input!"
-        assert type(score2) is int, "Invalid Input!"
+        assert isinstance(score1, int), "Invalid Input!"
+        assert isinstance(score2, int), "Invalid Input!"
 
         if score1 > score2:
             self.Points[team1] += 3
@@ -44,6 +45,7 @@ class AUBFL:
             elif score == winner_score:
                 winner_team = "No Winner"
         return winner_team
+
 
 League = AUBFL(["CSE", "CIVE", "PremedStudentSociety"])
 print(League)
